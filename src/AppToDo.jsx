@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useReducer, useState } from 'react';
 import './AppToDo.css';
-import CheckBox from './components/CheckBox';
 import todoReducer from './reducer/todo-reducer';
-import { BsFillTrashFill, BsFillSunFill, BsFillMoonFill } from 'react-icons/bs';
+import { BsFillSunFill, BsFillMoonFill } from 'react-icons/bs';
 import Navbar from './components/Navbar';
 import Button from './components/Button';
 import SubmitForm from './components/SubmitForm';
 import { DarkModeContext } from './context/DarkModeContext';
+import Todo from './components/Todo';
 
 export default function AppToDo() {
   const [todos, dispatch] = useReducer(todoReducer, [])
@@ -41,22 +41,21 @@ export default function AppToDo() {
     dispatch({ type: 'add', todo})
   }
 
-  const toggleTodo = (key) => {
-    dispatch({ type: 'check', key })
+  const toggleTodo = (updated) => {
+    dispatch({ type: 'update', updated })
   }
 
-  const deleteTodo = (itemKey) => {
-    dispatch({ type: 'delete', itemKey })
+  const deleteTodo = (deleted) => {
+    dispatch({ type: 'delete', deleted })
   }
 
-  // true인 항목만 반환하기 때문에 'all'인 경우 true를 반환해야 모든 항목이 나옴
   const handleFilter = (todo) => {
     if (filter === 'active') {
-      return !todo.checked;
+      return todo.status === 'active'
     } else if (filter === 'completed') {
-      return todo.checked;
+      return todo.status === 'completed'
     }
-    return true;
+    return todo
   }
 
   return (
@@ -75,13 +74,7 @@ export default function AppToDo() {
             todos
               .filter((todo) => handleFilter(todo))
               .map(todo => (
-              <li className='todo' key={todo.key}>
-                <div className='todo__content'>
-                <CheckBox name={todo.context} checkedDefault={todo.checked} onToggle={() => toggleTodo(todo.key)} />
-                <label htmlFor={todo.context}>{todo.context}</label>
-                </div>
-                <button className='delete__button' onClick={() => deleteTodo(todo.key)}><BsFillTrashFill /></button>
-              </li>
+              <Todo key={todo.key} todo={todo} onToggle={toggleTodo} onDelete={deleteTodo} />
             ))
           }
         </ul>
