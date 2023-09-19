@@ -1,7 +1,8 @@
 import React, { useReducer, useState } from 'react';
+import './AppToDo.css';
 import CheckBox from './components/CheckBox';
 import todoReducer from './reducer/todo-reducer';
-import { BsFillTrashFill } from 'react-icons/bs';
+import { BsFillTrashFill, BsFillSunFill } from 'react-icons/bs';
 import Navbar from './components/Navbar';
 import Button from './components/Button';
 import SubmitForm from './components/SubmitForm';
@@ -43,31 +44,37 @@ export default function AppToDo() {
   }
 
   return (
-    <>
+    <div className='app'>
       <Navbar>
-        <Button name={'All'} onClick={() => setFilter('all')} />
-        <Button name={'Active'} onClick={() => setFilter('active')} />
-        <Button name={'Completed'} onClick={() => setFilter('completed')} />
+        {/* TODO: 다크모드 가능하도록 바꾸기 */}
+        <Button name={<BsFillSunFill />} onClick={() => {console.log('클릭됨');}} />
+        <ul className='nav__filters'>
+          <li><Button name={'All'} onClick={() => setFilter('all')} isActive={filter === 'all'} /></li>
+          <li><Button name={'Active'} onClick={() => setFilter('active')} isActive={filter === 'active'} /></li>
+          <li><Button name={'Completed'} onClick={() => setFilter('completed')} isActive={filter === 'completed'} /></li>
+        </ul>
       </Navbar>
-      <main>
-        <ul>
+      <main className='main'>
+        <ul className='todos'>
           {
             todos
               .filter((todo) => handleFilter(todo))
               .map(todo => (
-              <li key={todo.key}>
-                <CheckBox checkedDefault={todo.checked} onToggle={() => toggleTodo(todo.key)} />
-                {todo.context}
-                <button onClick={() => deleteTodo(todo.key)}><BsFillTrashFill /></button>
+              <li className='todo' key={todo.key}>
+                <div className='todo__content'>
+                <CheckBox name={todo.context} checkedDefault={todo.checked} onToggle={() => toggleTodo(todo.key)} />
+                <label htmlFor={todo.context}>{todo.context}</label>
+                </div>
+                <button className='delete__button' onClick={() => deleteTodo(todo.key)}><BsFillTrashFill /></button>
               </li>
             ))
           }
         </ul>
       </main>
-      <footer>
+      <footer className='footer'>
         <SubmitForm value={form.newTodo} onSubmit={addTodo} onChange={handleChange} />
       </footer>
-    </>
+    </div>
   );
 }
 
