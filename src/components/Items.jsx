@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import DeleteButton from './DeleteButton';
+import CheckBox from './CheckBox';
 
 export default function Items() {
   const [form, setForm] = useState({ newTodo: '' });
@@ -36,6 +37,7 @@ export default function Items() {
         {
           todos.map(todo => (
             <li key={todo.key}>
+              <CheckBox />
               {todo.context}
               <DeleteButton todos={todos} setTodos={setTodos} itemKey={todo.key} />
             </li>
