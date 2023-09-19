@@ -10,7 +10,6 @@ import { DarkModeContext } from './context/DarkModeContext';
 
 export default function AppToDo() {
   const [todos, dispatch] = useReducer(todoReducer, [])
-  const [form, setForm] = useState({ newTodo: '' });
   const [filter, setFilter] = useState('all')
   const { darkMode, toggleDarkMode } = useContext(DarkModeContext)
 
@@ -38,17 +37,8 @@ export default function AppToDo() {
     }
   }, [])
 
-  // uncontrolled component handling
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm({ ...form, [name]: value })
-  }
-  
-  const addTodo = (e) => {
-    e.preventDefault();
-    const newTodo = form.newTodo.trim();
-    dispatch({ type: 'add', newTodo })
-    setForm({ newTodo: '' })
+  const handleAdd = (todo) => {
+    dispatch({ type: 'add', todo})
   }
 
   const toggleTodo = (key) => {
@@ -72,7 +62,6 @@ export default function AppToDo() {
   return (
     <div className='app'>
       <Navbar>
-        {/* TODO: 다크모드 가능하도록 바꾸기 */}
         <Button name={ darkMode ? <BsFillSunFill /> : <BsFillMoonFill /> } onClick={() => toggleDarkMode()} />
         <ul className='nav__filters'>
           <li><Button name={'All'} onClick={() => setFilter('all')} isActive={filter === 'all'} /></li>
@@ -98,7 +87,7 @@ export default function AppToDo() {
         </ul>
       </main>
       <footer className='footer'>
-        <SubmitForm value={form.newTodo} onSubmit={addTodo} onChange={handleChange} />
+        <SubmitForm onAdd={handleAdd} />
       </footer>
     </div>
   );
