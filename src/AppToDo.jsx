@@ -4,6 +4,7 @@ import todoReducer from './reducer/todo-reducer';
 import { BsFillTrashFill } from 'react-icons/bs';
 import Navbar from './components/Navbar';
 import Button from './components/Button';
+import SubmitForm from './components/SubmitForm';
 
 export default function AppToDo() {
   const [todos, dispatch] = useReducer(todoReducer, itemExample)
@@ -62,11 +63,10 @@ export default function AppToDo() {
             ))
           }
         </ul>
-        <form onSubmit={addTodo}>
-          <input type="text" name='newTodo' id='newTodo' value={form.newTodo} onChange={handleChange} />
-          <button type='submit'>Submit</button>
-        </form>
       </main>
+      <footer>
+        <SubmitForm value={form.newTodo} onSubmit={addTodo} onChange={handleChange} />
+      </footer>
     </>
   );
 }
