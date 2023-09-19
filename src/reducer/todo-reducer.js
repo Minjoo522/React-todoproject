@@ -22,15 +22,6 @@ export default function todoReducer(todos, action) {
       const { itemKey } = action
       return todos.filter((todo) => todo.key !== itemKey);
     }
-    case 'all': {
-      return todos;
-  }
-    case 'active': {
-      return todos.filter((todo) => todo.checked);
-    }
-    case 'completed': {
-      return todos.filter((todo) => !todo.checked);
-    }
     default: {
       throw Error(`알 수 없는 액션 타입입니다: ${action.type}`)
     }
