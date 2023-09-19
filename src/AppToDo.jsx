@@ -9,7 +9,7 @@ import SubmitForm from './components/SubmitForm';
 import { DarkModeContext } from './context/DarkModeContext';
 
 export default function AppToDo() {
-  const [todos, dispatch] = useReducer(todoReducer, itemExample)
+  const [todos, dispatch] = useReducer(todoReducer, [])
   const [form, setForm] = useState({ newTodo: '' });
   const [filter, setFilter] = useState('all')
   const { darkMode, toggleDarkMode } = useContext(DarkModeContext)
@@ -30,6 +30,13 @@ export default function AppToDo() {
       root.style.setProperty('--color-text', '##050a13');
     }
   }, [darkMode]);
+
+  useEffect(() => {
+    const storedTodos = JSON.parse(localStorage.getItem('todos'));
+    if (storedTodos) {
+      dispatch({ type: 'initialize', todos: storedTodos })
+    }
+  }, [])
 
   // uncontrolled component handling
   const handleChange = (e) => {
@@ -96,22 +103,3 @@ export default function AppToDo() {
     </div>
   );
 }
-
-// sample data
-const itemExample = [
-  {
-    key: '1',
-    context: '첫 번째 투두',
-    checked: false,
-  },
-  {
-    key: '2',
-    context: '두 번째 투두',
-    checked: true,
-  },
-  {
-    key: '3',
-    context: '세 번째 투두',
-    checked: false,
-  },
-]
