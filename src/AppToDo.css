@@ -65,6 +65,17 @@ button {
 
 .main {
   padding: 1rem;
+  overflow-y: auto;
+  max-height: 60%;
+}
+
+.main::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+.main::-webkit-scrollbar-thumb {
+  background-color: var(--color-primary);
+  border-radius: 1rem;
 }
 
 .todo {
