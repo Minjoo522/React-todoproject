@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import DeleteButton from './DeleteButton';
+import React, { useReducer, useState } from 'react';
 import CheckBox from './CheckBox';
+import todoReducer from '../reducer/todo-reducer';
+import { BsFillTrashFill } from 'react-icons/bs';
 
 export default function Items() {
+  const [todos, dispatch] = useReducer(todoReducer, itemExample)
   const [form, setForm] = useState({ newTodo: '' });
-  const [todos, setTodos] = useState(itemExample);
 
   // uncontrolled component handling
   const handleChange = (e) => {
@@ -13,30 +13,19 @@ export default function Items() {
     setForm({ ...form, [name]: value })
   }
   
-  // form submit시 기본 동작 제거
-  // 공백이 있으면 저장하지 않음
-  // list의 key값 전달하기 위해 uuid 사용
   const addTodo = (e) => {
     e.preventDefault();
     const newTodo = form.newTodo.trim();
-    if (newTodo === '') {
-      return;
-    }
-    const newTodoItem = {
-      key: uuidv4(),
-      context: newTodo,
-      checked: false,
-    };
-
-    setTodos([...todos, newTodoItem]);
+    dispatch({ type: 'add', newTodo })
     setForm({ newTodo: '' })
   }
 
   const toggleTodo = (key) => {
-    const updatedTodos = todos.map((todo) => 
-      todo.key === key ? { ...todo, checked: !todo.cheked } : todo
-    );
-    setTodos(updatedTodos);
+    dispatch({ type: 'check', key })
+  }
+
+  const deleteTodo = (itemKey) => {
+    dispatch({ type: 'delete', itemKey })
   }
 
   return (
@@ -47,7 +36,7 @@ export default function Items() {
             <li key={todo.key}>
               <CheckBox checkedDefault={todo.cheked} onToggle={() => toggleTodo(todo.key)} />
               {todo.context}
-              <DeleteButton todos={todos} setTodos={setTodos} itemKey={todo.key} />
+              <button onClick={() => deleteTodo(todo.key)}><BsFillTrashFill /></button>
             </li>
           ))
         }
