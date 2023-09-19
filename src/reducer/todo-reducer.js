@@ -7,13 +7,10 @@ export default function todoReducer(todos, action) {
       return todos;
     }
     case 'add': {
-      const { newTodo } = action
-      if (newTodo === '') {
-        return;
-      }
+      const { todo } = action
       const newTodoItem = {
         key: uuidv4(),
-        context: newTodo,
+        context: todo,
         checked: false,
       };
       const result = [...todos, newTodoItem];
