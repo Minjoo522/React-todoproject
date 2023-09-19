@@ -1,21 +1,15 @@
 :root {
   /* App Colors */
-  --color-primary: var(--color-lavender);
-  --color-primary-variant: var(--color-light-lavender);
-  --color-accent: var(--color-violet);
-  --color-text: var(--color-black);
-
-  /* Colors */
-  --color-white: #FEF8FF;
-  --color-black: #050a13;
-  --color-violet: #6522FF;
-  --color-lavender: #FAD9FF;
-  --color-light-lavender: #FCE7FF;
+  --color-primary: #FAD9FF;
+  --color-primary-variant: #FCE7FF;
+  --color-accent: #6522FF;
+  --color-accent-variant: #FEF8FF;
+  --color-text: #050a13;
 }
 
 body {
   box-sizing: border-box;
-  background-color: var(--color-white);
+  background-color: var(--color-accent-variant);
   color: var(--color-text);
   width: 100vw;
   height: 100vh;
@@ -31,6 +25,7 @@ ul {
 }
 
 button {
+  color: var(--color-text);
   background-color: transparent;
   outline: 0;
   border: 0;
@@ -49,7 +44,7 @@ button {
 .navbar {
   background-color: var(--color-primary);
   border-radius: 1rem 1rem 0 0;
-  border-bottom: 1px solid var(--color-white);
+  border-bottom: 1px solid var(--color-accent-variant);
   padding: 1rem;
   display: flex;
   justify-content: space-between;
@@ -95,7 +90,7 @@ button {
   display: flex;
   align-items: center;
   font-size: 1rem;
-  background-color: var(--color-white);
+  background-color: var(--color-accent-variant);
   border-radius: 50%;
 }
 
