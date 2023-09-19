@@ -11,23 +11,23 @@ export default function todoReducer(todos, action) {
       const newTodoItem = {
         key: uuidv4(),
         context: todo,
-        checked: false,
+        status: 'active',
       };
       const result = [...todos, newTodoItem];
 
       localStorage.setItem('todos', JSON.stringify(result));
       return result;
     }
-    case 'check': {
-      const { key } = action
-      const result = todos.map((todo) => todo.key === key ? { ...todo, checked: !todo.cheked } : todo);
+    case 'update': {
+      const { updated } = action
+      const result = todos.map((todo) => todo.key === updated.key ? updated : todo);
 
       localStorage.setItem('todos', JSON.stringify(result));
       return result;
     }
     case 'delete': {
-      const { itemKey } = action
-      const result = todos.filter((todo) => todo.key !== itemKey);
+      const { deleted } = action
+      const result = todos.filter((todo) => todo.key !== deleted.key);
 
       localStorage.setItem('todos', JSON.stringify(result))
       return result;
