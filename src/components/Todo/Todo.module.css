@@ -1,0 +1,27 @@
+.todo {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.checkbox {
+  cursor: pointer;
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-right: 0.5rem;
+  vertical-align: -0.2rem;
+  accent-color: var(--color-accent);
+}
+
+.checkbox:checked + label {
+  text-decoration: line-through;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  background-color: var(--color-accent-variant);
+  border-radius: 50%;
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { BsFillTrashFill } from 'react-icons/bs';
-
+import styles from './Todo.module.css'
 
 export default function Todo({ todo, onToggle, onDelete }) {
   const { context, status } = todo;
@@ -10,12 +10,12 @@ export default function Todo({ todo, onToggle, onDelete }) {
   }
   const handleDelete = () => onDelete(todo);
   return (
-    <li className='todo'>
-      <div className='todo__content'>
-      <input className='checkbox' type="checkbox" id="checkbox" value={status === 'completed'} checked={status === 'completed'} onChange={handleChange} />
+    <li className={styles.todo}>
+      <div>
+      <input className={styles.checkbox} type="checkbox" id="checkbox" value={status === 'completed'} checked={status === 'completed'} onChange={handleChange} />
       <label htmlFor="checkbox">{context}</label>
       </div>
-      <button className='delete__button' onClick={handleDelete}><BsFillTrashFill /></button>
+      <button className={styles.button} onClick={handleDelete}><BsFillTrashFill /></button>
     </li>
   );
 }

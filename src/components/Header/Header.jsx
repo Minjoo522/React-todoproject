@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { BsFillSunFill, BsFillMoonFill } from 'react-icons/bs';
-import { DarkModeContext } from '../context/DarkModeContext';
+import { DarkModeContext } from '../../context/DarkModeContext';
+import styles from './Header.module.css'
 
 export default function Header({ filters, filter, onFilterChange }) {
   const { darkMode, toggleDarkMode } = useContext(DarkModeContext)
@@ -11,13 +12,13 @@ export default function Header({ filters, filter, onFilterChange }) {
 
   return (
     <header>
-      <nav className='navbar'>
+      <nav className={styles.navbar}>
       <button onClick={toggleDarkMode}>{ darkMode ? <BsFillSunFill /> : <BsFillMoonFill /> }</button>
-        <ul className='nav__filters'>
+        <ul className={styles.filters}>
           {
             filters.map((value, index) => 
             <li key={index}>
-              <button className={`button ${value === filter ? 'active' : ''}`} onClick={() => onFilterChange(value)} >{value}</button>
+              <button className={`${styles.filter} ${value === filter && styles.active}`} onClick={() => onFilterChange(value)} >{value}</button>
             </li>)
           }
         </ul>
