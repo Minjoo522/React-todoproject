@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { RiSendPlane2Fill } from 'react-icons/ri';
+import { v4 as uuidv4 } from 'uuid';
 import styles from './SubmitForm.module.css'
 
 export default function SubmitForm({ onAdd }) {
@@ -11,7 +12,7 @@ export default function SubmitForm({ onAdd }) {
       setText('')
       return;
     }
-    onAdd(text)
+    onAdd({ key: uuidv4(), text, status: 'active' })
     setText('')
   }
   return (

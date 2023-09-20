@@ -1,30 +1,20 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './TodoList.module.css'
-import todoReducer from '../../reducer/todo-reducer';
 import SubmitForm from '../Form/SubmitForm';
 import Todo from '../Todo/Todo';
 
 export default function TodoList({ filter }) {
-  const [todos, dispatch] = useReducer(todoReducer, [])
+  const [ todos, setTodos ] = useState(readTodosFromLocalStorage)
 
   useEffect(() => {
-    const storedTodos = JSON.parse(localStorage.getItem('todos'));
-    if (storedTodos) {
-      dispatch({ type: 'initialize', todos: storedTodos })
-    }
-  }, [])
+    localStorage.setItem('todos', JSON.stringify(todos))
+  }, [todos])
 
-  const handleAdd = (todo) => {
-    dispatch({ type: 'add', todo})
-  }
-
-  const toggleTodo = (updated) => {
-    dispatch({ type: 'update', updated })
-  }
-
-  const deleteTodo = (deleted) => {
-    dispatch({ type: 'delete', deleted })
-  }
+  const handleAdd = (todo) => setTodos([...todos, todo]);
+  const handleUpdate = (updated) => 
+    setTodos(todos.map(todo => todo.key === updated.key ? updated : todo))
+  const handleDelete = (deleted) =>
+    setTodos(todos.filter(todo => todo.key !== deleted.key))
 
   const filtered = getFilteredItems(todos, filter);
 
@@ -34,7 +24,7 @@ export default function TodoList({ filter }) {
         <ul>
           {
             filtered.map(todo => (
-              <Todo key={todo.key} todo={todo} onToggle={toggleTodo} onDelete={deleteTodo} />
+              <Todo key={todo.key} todo={todo} onToggle={handleUpdate} onDelete={handleDelete} />
             ))
           }
         </ul>
@@ -44,6 +34,11 @@ export default function TodoList({ filter }) {
       </footer>
     </>
   );
+}
+
+function readTodosFromLocalStorage() {
+  const todos = localStorage.getItem('todos');
+  return todos ? JSON.parse(todos) : [];
 }
 
 function getFilteredItems(todos, filter) {
