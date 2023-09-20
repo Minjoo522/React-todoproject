@@ -1,3 +1,12 @@
+:root {
+  /* App Colors */
+  --color-primary: #FAD9FF;
+  --color-primary-variant: #FCE7FF;
+  --color-accent: #6522FF;
+  --color-accent-variant: #FEF8FF;
+  --color-text: #050a13;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,9 +14,53 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-accent-variant);
+  color: var(--color-text);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  color: var(--color-text);
+  background-color: transparent;
+  outline: 0;
+  border: 0;
+  cursor: pointer;
+}
+
+#root {
+  background-color: var(--color-primary-variant);
+  overflow: hidden;
+  position: relative;
+  width: 25rem;
+  height: 25rem;
+  border-radius: 1rem;
+  box-shadow: 0 3px 10px rgb(0,0,0,0.2);
+}
+
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-primary);
+  border-radius: 1rem;
 }

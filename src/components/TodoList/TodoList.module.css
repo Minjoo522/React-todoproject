@@ -1,0 +1,14 @@
+.main {
+  height: 100%;
+  padding: 1rem;
+  overflow-y: auto;
+  max-height: 68%;
+}
+
+.footer {
+  background-color: var(--color-primary);
+  position: absolute;
+  bottom: 0;
+  padding: 1rem;
+  width: 100%;
+}

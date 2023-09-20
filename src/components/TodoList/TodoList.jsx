@@ -1,10 +1,10 @@
 import React, { useEffect, useReducer } from 'react';
-import './AppToDo.css';
-import todoReducer from './reducer/todo-reducer';
-import SubmitForm from './components/SubmitForm';
-import Todo from './components/Todo';
+import styles from './TodoList.module.css'
+import todoReducer from '../../reducer/todo-reducer';
+import SubmitForm from '../Form/SubmitForm';
+import Todo from '../Todo/Todo';
 
-export default function AppToDo({ filter }) {
+export default function TodoList({ filter }) {
   const [todos, dispatch] = useReducer(todoReducer, [])
 
   useEffect(() => {
@@ -30,8 +30,8 @@ export default function AppToDo({ filter }) {
 
   return (
     <>
-      <main className='main'>
-        <ul className='todos'>
+      <main className={styles.main}>
+        <ul>
           {
             filtered.map(todo => (
               <Todo key={todo.key} todo={todo} onToggle={toggleTodo} onDelete={deleteTodo} />
@@ -39,7 +39,7 @@ export default function AppToDo({ filter }) {
           }
         </ul>
       </main>
-      <footer className='footer'>
+      <footer className={styles.footer}>
         <SubmitForm onAdd={handleAdd} />
       </footer>
     </>
