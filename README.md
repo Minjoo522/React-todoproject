@@ -13,6 +13,12 @@
 5. 라이트 모드 / 다크 모드 테마
 6. 로컬스토리지에 할 일들과 테마 저장하여 기억
 
+## 기술 스택
+<div align="center"> 
+<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=white"/>
+<img src="https://img.shields.io/badge/postCSS-DD3A0A?style=for-the-badge&logo=postCSS&logoColor=white"/>
+</div>
+
 ## 스크린샷
 1. 라이트 모드 / 다크모드 테마 : 사용자의 브라우저 초기 설정값을 따라가도록 설정
 <img src="img/1.png" width="700px"><br />
